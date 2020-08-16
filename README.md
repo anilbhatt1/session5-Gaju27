@@ -45,3 +45,11 @@
 
 # License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+# Funcitons Used
+ time_it
+ squared_power_list
+ polygon_area
+ temp_converter
+ speed_converter
