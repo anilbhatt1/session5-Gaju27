@@ -28,6 +28,10 @@ def time_it(fn, *args, repetitons=1, **kwargs):
         t1 = time.perf_counter()
         output = temp_converter(*args, **kwargs)
         t2 = time.perf_counter()
+    elif fn == 'speed_converter':
+        t1 = time.perf_counter()
+        output = speed_converter(*args, **kwargs)
+        t2 = time.perf_counter()
     return ((t2 - t1) / repetitons, output)
 
 
@@ -77,27 +81,75 @@ def polygon_area(*args, **kwargs):
 def temp_converter(*args, **kwargs):
     current_temp = args[0]
     input_temp, output_temp = kwargs.values()
-    if input_temp=='f':
-        if output_temp=='c':
-            final_temp= (current_temp -32) * (5/9)
-        elif output_temp=='k': # k for kelvin
-            final_temp = (current_temp -32) * (5/9) +273.15
+    if input_temp == 'f':
+        if output_temp == 'c':
+            final_temp = (current_temp - 32) * (5 / 9)
+        elif output_temp == 'k':  # k for kelvin
+            final_temp = (current_temp - 32) * (5 / 9) + 273.15
         else:
-            raise Exception ("Not in any conversion key value must in 'c' or 'k' . ")
+            raise Exception("Not in any conversion key value must in 'c' or 'k' . ")
     elif input_temp == 'c':
         if output_temp == 'f':
-            final_temp = (current_temp * 9/5) +32
+            final_temp = (current_temp * 9 / 5) + 32
         elif output_temp == 'k':
-            final_temp= current_temp + 273.15
+            final_temp = current_temp + 273.15
         else:
             raise Exception("Not in any conversion key value must in 'f' or 'k' ")
     elif input_temp == 'k':
         if output_temp == 'c':
-            final_temp = (current_temp - 273.15 )
+            final_temp = (current_temp - 273.15)
         elif output_temp == 'f':
-            final_temp= (current_temp - 273.15 ) * (9/5) +32
+            final_temp = (current_temp - 273.15) * (9 / 5) + 32
         else:
             raise Exception("Not in any conversion key value must in 'f' or 'c' ")
     else:
         raise Exception("Not in standard temperature input")
     return final_temp
+
+
+def speed_converter(*args, **kwargs):
+    speed_input = args[0]
+    dist_in, time_in = kwargs.values()
+    if dist_in == 'yard' and time_in == 'day':
+        speed_out = speed_input * 26247
+    elif dist_in == 'yard' and time_in == 'hr':
+        speed_out = speed_input * 1094
+    elif dist_in == 'yard' and time_in == 'min':
+        speed_out = speed_input * 18.227
+    elif dist_in == 'yard' and time_in == 's':
+        speed_out = speed_input / 3.292
+    elif dist_in == 'yard' and time_in == 'ms':
+        speed_out = speed_input / 3292
+    elif dist_in == 'km' and time_in == 'day':
+        speed_out = speed_input * 24
+    elif dist_in == 'km' and time_in == 'hr':
+        speed_out = speed_input * 1
+    elif dist_in == 'km' and time_in == 'min':
+        speed_out = speed_input / 60
+    elif dist_in == 'km' and time_in == 's':
+        speed_out = speed_input / 3600
+    elif dist_in == 'km' and time_in == 'ms':
+        speed_out = speed_input / 3600000
+    elif dist_in == 'm' and time_in == 'day':
+        speed_out = speed_input * 24000
+    elif dist_in == 'm' and time_in == 'hr':
+        speed_out = speed_input * 1000
+    elif dist_in == 'm' and time_in == 'min':
+        speed_out = speed_input / 60
+    elif dist_in == 'm' and time_in == 's':
+        speed_out = speed_input / 3.6
+    elif dist_in == 'm' and time_in == 'ms':
+        speed_out = speed_input / 3600
+    elif dist_in == 'ft' and time_in == 'day':
+        speed_out = speed_input * 78740
+    elif dist_in == 'ft' and time_in == 'hr':
+        speed_out = speed_input * 3281
+    elif dist_in == 'ft' and time_in == 'min':
+        speed_out = speed_input * 54.681
+    elif dist_in == 'ft' and time_in == 's':
+        speed_out = speed_input / 1.097
+    elif dist_in == 'ft' and time_in == 'ms':
+        speed_out = speed_input / 1097
+    else:
+        raise Exception("Wrong speed converter format")
+    return speed_out
